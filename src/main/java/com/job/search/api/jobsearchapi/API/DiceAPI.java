@@ -8,6 +8,7 @@ import org.jsoup.select.Elements;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -15,14 +16,22 @@ import java.util.ArrayList;
 
 @RestController
 public class DiceAPI {
-
     @GetMapping(value = "/dice")
-    //TODO add RequestParameter as @RequestBody
-    public ResponseEntity<Object> getDice() {
+    public ResponseEntity<Object> getDice(
+            @RequestParam(value = "title", required = true) String jobTitle,
+            @RequestParam(value = "page", required = false, defaultValue = "1") String page,
+            @RequestParam(value = "state", required = false, defaultValue = "") String state,
+            @RequestParam(value = "city", required = false, defaultValue = "") String city) {
+        SearchParameter searchParameter = new SearchParameter(jobTitle, state, city, page);
+        APILinks dice = APILinks.Dice;
+        String urlRequest;
+        if(searchParameter.getCity().isEmpty())
+            urlRequest = String.format(dice.getLink(), searchParameter.getTitle(), searchParameter.getCity(), searchParameter.getState(), searchParameter.getPage());
+        else
+            urlRequest = String.format(dice.getLink(), searchParameter.getTitle(),  "," + searchParameter.getCity(), searchParameter.getState(), searchParameter.getPage());
         JSONObject Entity = new JSONObject();
         ArrayList<Object> listings = new ArrayList<Object>();
         try{
-            String urlRequest = "https://www.dice.com/jobs/q-Javascript-l-Raleigh%2C_NC-radius-30-startPage-2-jobs-limit-7-jobs";
             Document document = Jsoup.connect(urlRequest).get();
             Elements jobs = document.getElementById("serp").getElementsByClass("complete-serp-result-div");
             int index = 0;

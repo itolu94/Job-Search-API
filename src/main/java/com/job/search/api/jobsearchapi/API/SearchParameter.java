@@ -4,32 +4,19 @@ public class SearchParameter {
     public String title;
     public String state;
     public String city;
-    public int page;
+    public String page;
 
-    public SearchParameter(String title, String state, String city, int page) {
+    public SearchParameter(String title, String state, String city, String page) {
         this.title = title;
         this.state = state;
         this.city = city;
         this.page = page;
     }
 
-    public SearchParameter(String title, String state, int page) {
-        this.title = title;
-        this.state = state;
-        this.page = page;
-    }
 
-    public SearchParameter(String title, String state) {
-        this.title = title;
-        this.state = state;
-        this.page = 1;
+    public String generateURL() {
+        return "Hellow world";
     }
-
-    public SearchParameter(String title) {
-        this.title = title;
-        this.page = 1;
-    }
-
 
     public String getTitle() {
         return title;
@@ -55,11 +42,11 @@ public class SearchParameter {
         this.city = city;
     }
 
-    public int getPage() {
+    public String getPage() {
         return page;
     }
 
-    public void setPage(int page) {
+    public void setPage(String page) {
         this.page = page;
     }
 }
