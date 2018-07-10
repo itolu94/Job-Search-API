@@ -22,13 +22,13 @@ public class DiceAPI {
             @RequestParam(value = "page", required = false, defaultValue = "1") String page,
             @RequestParam(value = "state", required = false, defaultValue = "") String state,
             @RequestParam(value = "city", required = false, defaultValue = "") String city) {
-        SearchParameter searchParameter = new SearchParameter(jobTitle, state, city, page);
         APILinks dice = APILinks.Dice;
         String urlRequest;
-        if(searchParameter.getCity().isEmpty())
-            urlRequest = String.format(dice.getLink(), searchParameter.getTitle(), searchParameter.getCity(), searchParameter.getState(), searchParameter.getPage());
+        if(city.isEmpty())
+            urlRequest = String.format(dice.getLink(), jobTitle, city, state, page);
         else
-            urlRequest = String.format(dice.getLink(), searchParameter.getTitle(),  "," + searchParameter.getCity(), searchParameter.getState(), searchParameter.getPage());
+            city = "," + city;
+            urlRequest = String.format(dice.getLink(), jobTitle, city, state, page);
         JSONObject Entity = new JSONObject();
         ArrayList<Object> listings = new ArrayList<Object>();
         try{

@@ -23,9 +23,8 @@ public class ZipRecruiterAPI {
             @RequestParam(value = "page", required = false, defaultValue = "1") String page,
             @RequestParam(value = "state", required = false, defaultValue = "") String state,
             @RequestParam(value = "city", required = false, defaultValue = "") String city) {
-        SearchParameter searchParameter = new SearchParameter(jobTitle, state, city, page);
         APILinks zipRecruiter = APILinks.ZipRecruiter;
-        String urlRequest = String.format(zipRecruiter.getLink(), searchParameter.getTitle(), searchParameter.getPage(), searchParameter.getCity(), searchParameter.getState());
+        String urlRequest = String.format(zipRecruiter.getLink(), jobTitle, page, city, state);
         JSONObject Entity = new JSONObject();
         ArrayList<Object> listings = new ArrayList<Object>();
         try{

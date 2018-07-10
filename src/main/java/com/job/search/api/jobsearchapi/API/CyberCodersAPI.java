@@ -23,9 +23,8 @@ public class CyberCodersAPI {
             @RequestParam(value = "page", required = false, defaultValue = "1") String page,
             @RequestParam(value = "state", required = false, defaultValue = "") String state,
             @RequestParam(value = "city", required = false, defaultValue = "") String city)  {
-        SearchParameter searchParameter = new SearchParameter(jobTitle, state, city, page);
         APILinks cybercoders = APILinks.Cybercoders;
-        String urlRequest = String.format(cybercoders.getLink(), searchParameter.page, searchParameter.getTitle(), searchParameter.getState(), searchParameter.getCity());
+        String urlRequest = String.format(cybercoders.getLink(), page, jobTitle, state, city);
         JSONObject Entity = new JSONObject();
         ArrayList<Object> listings = new ArrayList<Object>();
         try{
